@@ -1,20 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { ConfigProvider } from "./src/Context/ConfigContext";
+import MainScreen from "./src/Screen/MainScreen";
+import ConfigScreen from "./src/Screen/ConfigScreen";
+import HistoryScreen from "./src/Screen/HistoryScreen";
+import ChartScreen from "./src/Screen/ChartScreen";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ConfigProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Main"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "#ffffff", 
+            },
+            headerTintColor: "#586f6b",
+            headerTitleStyle: {
+              fontWeight: "bold", 
+            },
+          }}
+        >
+          <Stack.Screen
+            name="Main"
+            component={MainScreen}
+            options={{
+              title: "Gas Detection", 
+            }}
+          />
+          <Stack.Screen
+            name="Config"
+            component={ConfigScreen}
+            options={{
+              title: "Configuration", 
+            }}
+          />
+          <Stack.Screen
+            name="History"
+            component={HistoryScreen}
+            options={{
+              title: "History", 
+            }}
+          />
+          <Stack.Screen
+            name="Chart"
+            component={ChartScreen}
+            options={{
+              title: "Statistics", 
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ConfigProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
